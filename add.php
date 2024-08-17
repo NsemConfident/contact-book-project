@@ -1,5 +1,6 @@
 <?php
 require 'Contact.php';
+require './classes/contactModel.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
@@ -8,13 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Handle image upload
     $image = null;
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $image = 'uploads/' . basename($_FILES['image']['name']);
-        move_uploaded_file($_FILES['image']['tmp_name'], $image);
-    }
+    // if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    //     $image = 'uploads/' . basename($_FILES['image']['name']);
+    //     move_uploaded_file($_FILES['image']['tmp_name'], $image);
+    // }
+    
 
+    $contactModel = new ContactModel($name, $phone, $category, $image);
+    $image = $contactModel->image_picker();
     $contact = new Contact();
-    $contact->addContact($name, $phone, $category, $image);
+    $contact->addContact($contactModel->get_name(), $contactModel->get_phone(), $contactModel->get_category(), $image);
     header('Location: index.php');
     exit;
 }
