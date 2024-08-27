@@ -1,6 +1,6 @@
 <?php
 
-class Contact {
+class ContactFile {
     private $contacts;
 
     public function __construct() {
@@ -43,6 +43,7 @@ class Contact {
     private function saveContacts() {
         file_put_contents('contacts.json', json_encode(array_values($this->contacts)));
     }
+    
 }
 
 ?>
