@@ -17,7 +17,7 @@
         <tbody>
             <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                 <tr class="clickable-row" data-href="details.php?id=<?= $row['id']; ?>">
-                    <td ><img src="<?php $row['image'] ?>" alt="profile image"></td>
+                    <td><img src="{<?php $row['image'] ?>}" alt="profile image"></td>
                     <td><?php echo htmlspecialchars($row['name']); ?></td>
                     <td><?php echo htmlspecialchars($row['phone']); ?></td>
                     <td><?php echo htmlspecialchars($row['email']); ?></td>
@@ -32,7 +32,8 @@
 
     </table>
 
-</div><script src="assets/js/bootstrap.min.js"></script>
+</div>
+<script src="assets/js/bootstrap.min.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {

@@ -1,7 +1,6 @@
 <?php
 // src/controllers/ContactController.php
 $path = '../../src/models/ContactFile.php';
-echo "$path";
 require_once __DIR__ . '/../models/Contact.php';
 
 
@@ -25,6 +24,12 @@ class ContactController
             $contact->email = $_POST['email'];
             $contact->category = $_POST['category'];
 
+            if(is_string($contact->name) && is_string($contact->category) && is_string($contact->email) && is_numeric($contact->phone))
+            {
+                
+            }else{
+                
+            }
 
             if ($contact->create()) {
                 header('Location: index.php');

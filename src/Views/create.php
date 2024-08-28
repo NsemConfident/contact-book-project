@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-6">
             <label for="phone" class="form-label">Phone</label>
-            <input type="tel" class="form-control" name="phone" id="phone">
+            <input type="number" class="form-control" name="phone" id="phone">
         </div>
         <div class="col-12">
             <label for="email" class="form-label">Email</label>
