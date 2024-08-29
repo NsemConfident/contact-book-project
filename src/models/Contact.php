@@ -161,7 +161,12 @@ class Contact
             $check = getimagesize($_FILES["image"]["tmp_name"]);
             if ($check !== false) {
                 if (file_exists($target_file)) {
-                    echo "Sorry, file already exists.";
+                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>sorry!</strong> sorry file already exist. 
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>';
                     $uploadOk = 0;
                 } else if ($_FILES["image"]["size"] > 500000) {
                     echo "Sorry, your file is too large.";
@@ -170,7 +175,6 @@ class Contact
                     $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                     && $imageFileType != "gif"
                 ) {
-                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                     $uploadOk = 0;
                 } else {
                     if ($uploadOk == 1 && move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
@@ -178,11 +182,21 @@ class Contact
                         $this->image = "../../uploads/" . htmlspecialchars(basename($_FILES["image"]["name"]));
                         echo '<img src="' . $this->image . '" alt="">';
                     } else {
-                        echo "Sorry, there was an error uploading your file.";
+                        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>sorry!</strong> Sorry, the was a problem uploading this file. 
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>';
                     }
                 }
             } else {
-                echo "File is not an image.";
+                echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>sorry!</strong> file is not an image.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>';
                 $uploadOk = 0;
             }
         }
@@ -190,7 +204,12 @@ class Contact
         // Ensure $this->image is not null before the insert query
         if (is_null($this->image)) {
             // Handle the case where no image was uploaded (use a default image, throw an error, etc.)
-            echo "No image uploaded.";
+            echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>sorry!</strong> no image uploaded.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>';
             return false;
         }
 
@@ -218,7 +237,7 @@ class Contact
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(':id', $this->id);
-        
+
 
         if ($stmt->execute()) {
             return true;
