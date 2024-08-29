@@ -24,15 +24,30 @@ class ContactController
             $contact->email = $_POST['email'];
             $contact->category = $_POST['category'];
 
-            if(is_string($contact->name) && is_string($contact->category) && is_string($contact->email) && is_numeric($contact->phone))
-            {
-                
-            }else{
-                
-            }
+            if (is_string($contact->name) && is_string($contact->category) && is_string($contact->email)) {
 
-            if ($contact->create()) {
-                header('Location: index.php');
+                //email verification and validation and phone number verification 
+                $sanitizedEmail = filter_var($contact->email, FILTER_SANITIZE_EMAIL);
+                if (filter_var($sanitizedEmail, FILTER_VALIDATE_EMAIL)) {
+
+                    $sanitizedEmail = $contact->email;
+                    if (strlen($contact->phone) < 9) {
+
+                        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>sorry!</strong> incorrect phone number
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>';
+                    }else{
+                        if ($contact->create()) {
+                            header('Location: index.php');
+                        }
+                    }
+                    
+                } else {
+                }
+            } else {
             }
         }
         include __DIR__ . '/../views/create.php';
@@ -40,7 +55,7 @@ class ContactController
 
     public function edit($id)
     {
-// code to update file
+        // code to update file
         $id = $_GET['id'] ?? null;
         $contactFile = new ContactFile();
         $contactData = $contactFile->getContact($id);
@@ -50,28 +65,26 @@ class ContactController
         //     header('Location: index.php');
         //     exit;
         // }
-// end
+        // end
         $contact = new Contact();
         $contact->id = $id;
         $currentContact = $contact->readOne();
-        
+
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $contact->name = $_POST['name'];
             $contact->phone = $_POST['phone'];
             $contact->email = $_POST['email'];
             $contact->category = $_POST['category'];
+            $contact->image = $_POST['image'];
 
             //handle image upload
-            $image = null;
-            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $image = "C:\xampp\htdocs\phonebook\src\controllers\uploads\\". basename($_FILES['image']['name']);
-            move_uploaded_file($_FILES['image']['tmp_name'], $image);
-            echo "image is uploaded";
-           }
-
-
-            $contactFile->updateContact($id, $contact->name, $contact->phone, $contact->category, $image);
+            // $image = null;
+            // if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            //     $image = "C:\xampp\htdocs\phonebook\src\controllers\uploads\\" . basename($_FILES['image']['name']);
+            //     move_uploaded_file($_FILES['image']['tmp_name'], $image);
+            //     echo "image is uploaded";
+            // }
 
             if ($contact->update()) {
                 header('Location: index.php');
@@ -85,14 +98,20 @@ class ContactController
     {
         $contact = new Contact();
         $contact->id = $id;
+        $rmImage = $contact->image; 
 
-        if ($id !== null) {
-            $contactfile = new ContactFile();
-            $contactfile->deleteContact($id);
-        }
+        $toDelete = 0;
 
-        if ($contact->delete()) {
-            header('Location: index.php');
-        }
+        
+            if ($id !== null) {
+                $contactfile = new ContactFile();
+                $contactfile->deleteContact($id);
+            }
+
+            if ($contact->delete()) {
+                header('Location: index.php');
+            }
+            
+            
     }
 }

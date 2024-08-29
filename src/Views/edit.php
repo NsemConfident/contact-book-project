@@ -29,8 +29,8 @@
             <label for="image" class="form-label">Profile Image</label>
             <input type="file" class="form-control" id="image" name="image">
             <p>Current Image:</p>
-            <?php if ($contactData['image']): ?>
-                <img src="<?= htmlspecialchars($contactData['image']) ?>" alt="Profile Image" class="img-thumbnail" style="width: 150px;">
+            <?php if ($currentContact['image']): ?>
+                <img src="<?= '/phonebook/uploads/' . htmlspecialchars($currentContact['image']) ?>" alt="Profile Image" class="img-thumbnail" style="width: 150px;">
             <?php else: ?>
                 <p>No image uploaded</p>
             <?php endif; ?>

@@ -6,7 +6,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>profile</th>
+                <th>PROFILE</th>
                 <th>NAME</th>
                 <th>PHONE NUMBER</th>
                 <th>EMAIL</th>
@@ -17,7 +17,11 @@
         <tbody>
             <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                 <tr class="clickable-row" data-href="details.php?id=<?= $row['id']; ?>">
-                    <td><img src="{<?php $row['image'] ?>}" alt="profile image"></td>
+                    <!-- Correcting the image path -->
+                    <td>
+                        <img src="<?php echo '/phonebook/uploads/' . htmlspecialchars(basename($row['image'])); ?>" alt="profile image" style="width: 50px; height: 50px;">
+                    </td>
+
                     <td><?php echo htmlspecialchars($row['name']); ?></td>
                     <td><?php echo htmlspecialchars($row['phone']); ?></td>
                     <td><?php echo htmlspecialchars($row['email']); ?></td>
@@ -28,6 +32,9 @@
                     </td>
                 </tr>
             <?php endwhile; ?>
+
+
+
         </tbody>
 
     </table>
