@@ -39,12 +39,11 @@ class ContactController
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>';
-                    }else{
+                    } else {
                         if ($contact->create()) {
                             header('Location: index.php');
                         }
                     }
-                    
                 } else {
                 }
             } else {
@@ -98,20 +97,17 @@ class ContactController
     {
         $contact = new Contact();
         $contact->id = $id;
-        $rmImage = $contact->image; 
 
-        $toDelete = 0;
+        if ($id !== null) {
+            $contactfile = new ContactFile();
+            $contactfile->deleteContact($id);
+        }
 
-        
-            if ($id !== null) {
-                $contactfile = new ContactFile();
-                $contactfile->deleteContact($id);
-            }
-
-            if ($contact->delete()) {
-                header('Location: index.php');
-            }
+        if ($contact->delete()) {
+            // Return a success response (1)
             
-            
+        } else {
+            // Return a failure response (0 or any other value)
+        }
     }
 }

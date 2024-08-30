@@ -238,10 +238,11 @@ class Contact
 
         $stmt->bindParam(':id', $this->id);
 
-
         if ($stmt->execute()) {
+            echo 1;
             return true;
         }
+        echo 0;
         return false;
     }
 }
