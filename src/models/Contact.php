@@ -39,15 +39,16 @@ class Contact
             // Check if the file is an actual image
             $check = getimagesize($_FILES["image"]["tmp_name"]);
             if ($check !== false) {
-                if (file_exists($target_file)) {
-                    echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <strong>sorry!</strong> sorry image already exist
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                                </div>';
-                    $uploadOk = 0;
-                } else if ($_FILES["image"]["size"] > 500000) {
+            //     if (file_exists($target_file)) {
+            //         echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            //                     <strong>sorry!</strong> sorry image already exist
+            //                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            //                     <span aria-hidden="true">&times;</span>
+            //                     </button>
+            //                     </div>';
+            //         $uploadOk = 0;
+            //     } else 
+                if ($_FILES["image"]["size"] > 500000) {
                     echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
                                 <strong>sorry!</strong> incorrect phone number
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -168,7 +169,8 @@ class Contact
                                 </button>
                                 </div>';
                     $uploadOk = 0;
-                } else if ($_FILES["image"]["size"] > 500000) {
+                } 
+                else if ($_FILES["image"]["size"] > 500000) {
                     echo "Sorry, your file is too large.";
                     $uploadOk = 0;
                 } else if (

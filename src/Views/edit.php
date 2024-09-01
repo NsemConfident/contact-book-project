@@ -30,13 +30,13 @@
             <input type="file" class="form-control" id="image" name="image">
             <p>Current Image:</p>
             <?php if ($currentContact['image']): ?>
-                <img src="<?= '/phonebook/uploads/' . htmlspecialchars($currentContact['image']) ?>" alt="Profile Image" class="img-thumbnail" style="width: 150px;">
+                <img src="<?= '/phonebook/uploads/' . htmlspecialchars(basename($currentContact['image'])) ?>" alt="Profile Image" class="img-thumbnail" style="width: 150px;">
             <?php else: ?>
                 <p>No image uploaded</p>
             <?php endif; ?>
         </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-primary">Update Contact</button>
+            <button type="submit" class=" update btn btn-primary">Update Contact</button>
         </div>
     </form>
 </div>
